@@ -27,7 +27,7 @@ app.use("/uploads/files", express.static("uploads/files"));
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", cors(), authRoutes);
 
 app.use("/api/contacts", contactsRoutes);
 
