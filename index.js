@@ -7,7 +7,7 @@ import authRoutes from "./routes/AuthRoutes.js";
 import contactsRoutes from "./routes/ContactRoutes.js";
 import setupSocket from "./socket.js";
 import messagesRoutes from "./routes/MessagesRoutes.js";
-import channelRoutes from "./routes/ChannelROutes.js";
+import channelRoutes from "./routes/ChannelRoutes.js";
 
 dotenv.config();
 
@@ -15,13 +15,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
-app.use(
-  cors({
-    origin: [process.env.ORIGIN],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use("/upload/profiles", express.static("upload/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
