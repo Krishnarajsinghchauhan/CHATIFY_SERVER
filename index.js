@@ -15,11 +15,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 app.use("/upload/profiles", express.static("upload/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
