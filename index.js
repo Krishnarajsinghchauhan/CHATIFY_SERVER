@@ -17,7 +17,7 @@ const databaseUrl = process.env.DATABASE_URL;
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://chatify-lime-three.vercel.app/",
   })
 );
 
