@@ -16,12 +16,30 @@ const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
 const cors = require("cors");
-app.use(
-  cors({
-    origin: "https://chatify-lime-three.vercel.app", // or allow multiple origins as shown earlier
-    credentials: true, // if you're sending cookies or authentication tokens
-  })
-);
+
+const corsOptions = {
+  origin: "https://chatify-lime-three.vercel.app", // Specific origin
+  credentials: true, // Allow credentials (cookies, headers)
+};
+
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://chatify-lime-three.vercel.app"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
 
 app.use("/upload/profiles", express.static("upload/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
