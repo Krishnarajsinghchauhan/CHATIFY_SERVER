@@ -15,9 +15,11 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
+const cors = require("cors");
 app.use(
   cors({
-    origin: "https://chatify-lime-three.vercel.app/",
+    origin: "https://chatify-lime-three.vercel.app", // or allow multiple origins as shown earlier
+    credentials: true, // if you're sending cookies or authentication tokens
   })
 );
 
