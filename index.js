@@ -15,11 +15,20 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
-const allowedOrigins = process.env.ORIGIN || "*";
+const allowedOrigins = [
+  "https://chatify-ew3ndth9j-krishnas-projects-7d6dddf1.vercel.app",
+  "https://chatify-dusky-one.vercel.app", // Add other URLs if needed
+];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
