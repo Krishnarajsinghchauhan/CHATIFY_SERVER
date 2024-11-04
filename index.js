@@ -15,9 +15,11 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
+const allowedOrigins = process.env.ORIGIN || "*";
+
 app.use(
   cors({
-    origin: process.env.ORIGIN,
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
