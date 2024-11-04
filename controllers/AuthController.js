@@ -19,8 +19,6 @@ export const signup = async (request, response, next) => {
     const user = await User.create({ email, password });
     response.cookie("jwt", createToken(email, user.id), {
       maxAge,
-      secure: true,
-      sameSite: "None",
     });
 
     response.status(201).json({
@@ -53,8 +51,6 @@ export const login = async (request, response, next) => {
 
     response.cookie("jwt", createToken(email, user.id), {
       maxAge,
-      secure: true,
-      sameSite: "None",
     });
 
     response.status(200).json({
@@ -180,7 +176,7 @@ export const removeProfileImage = async (request, response, next) => {
 
 export const logout = async (request, response, next) => {
   try {
-    response.cookie("jwt", "", { maxAge: 1, secure: true, sameSite: "None" });
+    response.cookie("jwt", "", { maxAge: 1 });
 
     return response.status(200).send("Logged out successfully");
   } catch (error) {
