@@ -15,20 +15,9 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseUrl = process.env.DATABASE_URL;
 
-const allowedOrigins = [
-  "https://chatify-ew3ndth9j-krishnas-projects-7d6dddf1.vercel.app",
-  "https://chatify-dusky-one.vercel.app", // Add other URLs if needed
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: [process.env.ORIGIN],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -49,7 +38,7 @@ app.use("/api/messages", messagesRoutes);
 app.use("/api/channel", channelRoutes);
 
 const server = app.listen(port, () => {
-  console.log(`Server running on port http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
 
 setupSocket(server);

@@ -4,20 +4,9 @@ import Message from "./models/MessagesModal.js";
 import Channel from "./models/ChannelModal.js";
 
 const setupSocket = (server) => {
-  const allowedOrigins = [
-    "https://chatify-ew3ndth9j-krishnas-projects-7d6dddf1.vercel.app",
-    "https://chatify-dusky-one.vercel.app", // Add other URLs if needed
-  ];
-
   const io = new SockerIOServer(server, {
     cors: {
-      origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error("Not allowed by CORS"));
-        }
-      },
+      origin: process.env.ORIGIN,
       methods: ["GET", "POST"],
       credentials: true,
     },
