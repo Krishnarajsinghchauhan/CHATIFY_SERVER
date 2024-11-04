@@ -4,9 +4,17 @@ import Message from "./models/MessagesModal.js";
 import Channel from "./models/ChannelModal.js";
 
 const setupSocket = (server) => {
+  const allowedOrigins = process.env.ORIGIN.split(",");
+
   const io = new SockerIOServer(server, {
     cors: {
-      origin: process.env.ORIGIN,
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true); // Allow requests from allowed origins
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
       methods: ["GET", "POST"],
       credentials: true,
     },
